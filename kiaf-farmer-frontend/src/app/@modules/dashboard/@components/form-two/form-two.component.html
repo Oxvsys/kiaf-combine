@@ -1,0 +1,69 @@
+<form [formGroup]="landFormGroup" class="step-container">
+      
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="form-control-group"> <label class="label" for="">Irrigated Farm Area ( सिंचित शेत जमीन )</label>
+                <input fullWidth nbInput type="number" placeholder="Irrigated farm in acres" onKeyPress="if(this.value.length==5) return false;"
+                class="form-control" formControlName="irrigatedFarmArea">
+                <span class="custom-error-text" *ngIf="(landFormControl.irrigatedFarmArea.errors && (landFormControl.irrigatedFarmArea.dirty || submittedForm))">
+                    <span *ngFor="let err of getErrorForParticularField(landFormControl.irrigatedFarmArea.errors)"  >
+                        {{err}}
+                    </span>
+                </span>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="form-control-group"> <label class="label" for="">Non-Irrigated Farm Area ( सिंचित नसलेली शेतजमीन )</label>
+                <input fullWidth nbInput type="number" placeholder="Non-irrigated farm in acres" onKeyPress="if(this.value.length==5) return false;"
+                    class="form-control" formControlName="nonIrrigatedFarmArea"   >
+                <span class="custom-error-text" *ngIf="(landFormControl.nonIrrigatedFarmArea.errors && (landFormControl.nonIrrigatedFarmArea.dirty || submittedForm))">
+                    <span *ngFor="let err of getErrorForParticularField(landFormControl.nonIrrigatedFarmArea.errors)">
+                        {{err}}
+                    </span>
+                </span>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <form>
+                <div class="form-control-group"> <label class="label" for="">Total Farm Area in acres</label>
+                    <input disabled fullWidth nbInput type="number" placeholder="Non-irrigated farm in acres"
+                    class="form-control" name="total" [(ngModel)]="total">
+                </div>
+            </form>
+        </div>
+        <div class="col-lg-6">
+            <div class="form-control-group"> <label class="label" for="">Non Farm Land in acres ( शेती नसलेली जमीन )</label>
+                <input fullWidth nbInput type="number" placeholder="Non-farm land in acres"
+                onKeyPress="if(this.value.length==5) return false;"
+                    class="form-control" formControlName="nonFarmLand" >
+                <span class="custom-error-text" *ngIf="(landFormControl.nonFarmLand.errors && (landFormControl.nonFarmLand.dirty || submittedForm))">
+                    <span *ngFor="let err of getErrorForParticularField(landFormControl.nonFarmLand.errors)">
+                        {{err}}
+                    </span>
+                </span>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="form-control-group"> <label class="label" for="">Survey Number ( सर्वेक्षण क्रमांक )</label>
+                <input fullWidth nbInput type="text" placeholder="Survey Number"
+                    class="form-control" formControlName="surveyNo">
+                <span class="custom-error-text" *ngIf="(landFormControl.surveyNo.errors && (landFormControl.surveyNo.dirty || submittedForm))">
+                    <span *ngFor="let err of getErrorForParticularField(landFormControl.surveyNo.errors)">
+                        {{err}}
+                    </span>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex justify-content-around">
+        <input type="hidden" formControlName="totalArea"> 
+        <span *ngIf="landFormControl.totalArea.errors?.areaRange" class="custom-error-text">
+            <span>Total Farm (Irrigated or Non Irrigated) must be in range 1 - 200 acres</span>
+        </span>
+    </div>
+    <div class="d-flex justify-content-around">
+        <button class="m-2" nbButton nbStepperPrevious status="primary">prev</button> <button
+            class="m-2" type="button" (click)="onFormSubmit()" status="primary" nbButton
+            nbStepperNext>next</button>
+    </div>
+</form>

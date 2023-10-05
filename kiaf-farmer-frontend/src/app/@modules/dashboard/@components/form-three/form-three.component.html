@@ -1,0 +1,54 @@
+<form [formGroup]="cropGroup" *ngIf="cropGroup" class="step-container">
+    <div class="row">
+        <p class="h4">Acres Under ( एकर अंतर्गत )</p>
+
+        <div class="col-lg-6" *ngFor="let c of crops">
+            <div class="form-control-group">
+                <label class="label">{{c.crop_name}} ({{c.crop_name_mr}})</label>
+                <input nbInput fullWidth [formControlName]="c.id.toString()" type="number"
+                onKeyPress="if(this.value.length==5) return false;">
+                <span class="custom-error-text" *ngIf="cropGroup.dirty">
+                    <span *ngFor="let err of getErrorForParticularField(cropGroup.controls[c.id.toString()]?.errors)">
+                        {{err}}
+                    </span>
+                </span>
+            </div>
+        </div>
+        <form class="col-lg-6">
+            <div class="form-control-group">
+                <label for="" class="label">Other</label>
+                <input nbInput fullWidth disabled [value]="others" name="other">
+            </div>
+        </form>
+    </div>
+</form>
+<div class="d-flex justify-content-around">
+    <input type="hidden"> 
+    <span *ngIf="areaError" class="custom-error-text">
+        <span>Total area under crop must be less than {{allowedArea | number}} acres</span>
+    </span>
+</div>
+<form [formGroup]="liveStockGroup" *ngIf="liveStockGroup" class="step-container">
+    <div class="row">
+        <p class="h4">Livestock No.s (पशुधन संख्या)</p>
+
+        <div class="col-lg-6" *ngFor="let c of liveStock">
+            <div class="form-control-group">
+                <label class="label">{{c.live_stock_name}} ({{c.live_stock_name_mr}})</label>
+                <input nbInput fullWidth [formControlName]="c.id.toString()" type="number"
+                oninput="if(!this.value.match('^[1-9][0-9]*$'))this.value='';"
+                onKeyPress="if(this.value.length==2) return false;">
+                <span class="custom-error-text" *ngIf="liveStockGroup.dirty">
+                    <span *ngFor="let err of getErrorForParticularField(liveStockGroup.controls[c.id.toString()]?.errors)">
+                        {{err}}
+                    </span>
+                </span>
+            </div>
+        </div>
+    </div>
+</form>
+
+<div class="d-flex justify-content-around">
+    <button class="m-2" nbButton nbStepperPrevious status="primary">prev</button>
+    <button class="m-2" type="button" status="primary" [disabled]="areaError" (click)="onFormSubmit($event)" nbButton>next</button>
+</div>

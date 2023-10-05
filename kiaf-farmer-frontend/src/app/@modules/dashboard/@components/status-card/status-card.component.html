@@ -1,0 +1,11 @@
+<nb-card (click)="navigate()">
+  <div class="icon-container">
+    <div class="icon status-{{ type }}">
+      <ng-content></ng-content>
+    </div>
+  </div>
+  <div class="details">
+    <div class="title h5">{{ title }}</div>
+    <div class="status paragraph-2">{{description}}</div>
+  </div>
+</nb-card>

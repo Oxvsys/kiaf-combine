@@ -1,0 +1,59 @@
+<p>Dashboard Home</p>
+<button nbButton *ngIf="Pwa.promptEvent" (click)="installPwa()">
+    Install
+</button>
+<div class="row">
+    <div class="col-xxxl-3 col-md-12 col-lg-6">
+        <app-status-card [title]="'Add New Farmer'" type='info' description="Start creating new farmer"
+            routerLink="dashboard/farmer/create">
+            <nb-icon icon="person-add-outline" [ngStyle]="{fontSize:'2rem'}"></nb-icon>
+        </app-status-card>
+    </div>
+    <div class="col-xxxl-3 col-md-12 col-lg-6">
+        <app-status-card [title]="'View All Farmers'" type='warning' description="Find or view previously created farmers"
+            routerLink="dashboard/farmer">
+            <nb-icon icon="eye" [ngStyle]="{fontSize:'2rem'}"></nb-icon>
+        </app-status-card>
+    </div>
+</div>
+<!-- <app-todo></app-todo> --> 
+    <p *ngIf="user?.user_type==userType.agent">Farmer Statistics</p>
+    <div *ngIf="user?.user_type==userType.agent" class="row">
+        <app-status-card class="col-md-12 col-lg-6 col-xl-4 " title="Registered Farmers" type='info' description="Total farmers that you registered">
+            <p class="p-stat">{{response?.total_agent_farmers}}</p>
+        </app-status-card>
+
+        <app-status-card class="col-md-12 col-lg-6 col-xl-4 " title="Active Farmers" type='success' description="Total Active farmers">
+            <p class="p-stat">{{response?.total_registered_farmers}}</p>
+        </app-status-card>
+
+        <app-status-card class="col-md-12 col-lg-6 col-xl-4 " title="Inactive Farmers" type='warning' description="Total farmers discarded by admin">
+            <p class="p-stat">{{response?.total_discarded_farmers}}</p>
+        </app-status-card>
+    </div>
+    <p *ngIf="user?.user_type==userType.agentAdmin">Agent Statistics</p>
+    <div class="row" *ngIf="user?.user_type==userType.agentAdmin">
+        <app-status-card class="col-md-12 col-lg-4 " title="Total Agents" type='info' description="Total agents registered on the system">
+            <p class="p-stat">{{response?.total_agents}}</p>
+        </app-status-card>
+        <app-status-card class="col-md-12 col-lg-4 " title="Active Agents" type='success' description="Total agents active on the system">
+            <p class="p-stat">{{response?.total_active_agents}}</p>
+        </app-status-card>
+        <app-status-card class="col-md-12 col-lg-4 " title="Inactive Agents" type='warning' description="Total agents inactive on the system">
+            <p class="p-stat">{{response?.total_inactive_agents}}</p>
+        </app-status-card>
+    </div>
+    <p *ngIf="user?.user_type==userType.agentAdmin">Farmer Statistics</p>
+    <div class="row" *ngIf="user?.user_type==userType.agentAdmin">
+        <app-status-card class="col-md-12 col-lg-6 col-xl-4" title="Total Farmers" type='info' description="Total farmers registered">
+            <p class="p-stat">{{response?.total_farmers}}</p>
+        </app-status-card>
+        <app-status-card class="col-md-12 col-lg-6 col-xl-4" title="Active Farmers" type='success' description="Total active farmers">
+            <p class="p-stat">{{response?.total_active_farmers}}</p>
+        </app-status-card>
+        <app-status-card class="col-md-12 col-lg-6 col-xl-4" title="Disable Farmers" type='warning' description="Total discarded farmers by admin">
+            <p class="p-stat">{{response?.total_inactive_farmers}}</p>
+        </app-status-card>
+    </div>
+    <router-outlet></router-outlet>
+ 

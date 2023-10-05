@@ -1,0 +1,13 @@
+<div class="d-flex align-item-center justify-content-between" [ngClass]="{'strike':strike}">
+
+    <nb-user nbTooltip="This is a tooltip" nbTooltipStatus="primary" size="medium" [name]="fullName" [title]="contactNo" [ngStyle]="{backgroundPosition:'center'}" [picture]="profilePicture">
+    </nb-user>
+    <ng-template #notChecked>
+        <nb-badge text="Not verified" status="danger" position="top right">
+        </nb-badge>
+    </ng-template>
+    <div class="actions d-flex">
+        <ng-content></ng-content>
+    </div>
+
+</div>

@@ -1,0 +1,106 @@
+<ng-container *ngIf="farmers$ | async as farmersResponse">
+
+    <nb-card size="medium" style="height: 75vh">
+        <nb-card-header style="padding: 1rem;">
+            <div class="d-flex justify-content-between">
+                <span *ngIf="!showSearchBar" style="line-height: 2.5rem;">
+                    Registered Farmers
+                    <!-- <ng-container >Search : {{searchText}}</ng-container> -->
+                    <nb-tag size="small" *ngIf="searchText.length > 0" [text]="searchText" removable
+                        (remove)="clearSearch()"></nb-tag>
+
+                </span>
+
+                <button *ngIf="!showSearchBar" nbButton ghost shape="round" status="primary"
+                    (click)="showSearchBar=true;">
+                    <nb-icon icon="search"></nb-icon>
+                </button>
+
+                <input *ngIf="showSearchBar" [(ngModel)]="searchText" fullWidth nbInput placeholder="Search for farmer"
+                    (keydown.enter)="search()">
+            </div>
+        </nb-card-header>
+        <p class="mx-3 mt-3 text-danger text-center" *ngIf="farmersResponse.results.length ==0">No Farmer found</p>
+        <nb-list>
+            <nb-list-item class="item" *ngFor="let a of farmersResponse.results;">
+                <app-farmer-tile [strike]="a.discard" [fullName]="a.first_name + ' ' + a.family_name"
+                    [contactNo]="a.mobile_nos" [mobileVerified]="a.mobile_nos_verified"
+                    [profilePicture]="a.mobile_nos_verified ? '/assets/check.svg':'/assets/cross.svg' ">
+                    <img *ngIf="a.created_by?.profile_image" [src]="a.created_by?.profile_image"
+                        class="action-button mx-1" alt="Agent Profile Picture">
+                    <button size="tiny" nbButton outline shape="round" status="primary" class="action-button mx-1"
+                        (click)="generatePDF(a)" [disabled]="!a.mobile_nos_verified" [nbSpinner]="loading && loadingId==a.id" nbSpinnerStatus="primary">
+                        <nb-icon size="tiny" icon="download-outline" *ngIf="!(loading && loadingId==a.id)"></nb-icon>
+                    </button>
+                    <button nbButton outline shape="round" status="primary" class="action-button mx-1"
+                        (click)="showFarmerDetail(dialog,a)">
+                        <nb-icon icon="eye-outline"></nb-icon>
+                    </button>
+                </app-farmer-tile>
+            </nb-list-item>
+        </nb-list>
+    </nb-card>
+    <app-pagination (changePage)="onPageChange($event)" [totalPages]="farmersResponse.count" [pageSize]="5">
+    </app-pagination>
+</ng-container>
+
+<ng-template #dialog let-data let-ref="dialogRef">
+    <nb-card class="dialog-card">
+        <nb-card-header>
+            <div class="d-flex justify-content-between">
+                <span style="margin:auto 0;display: block;">
+                    {{ data.first_name }} {{ data.family_name }} ({{data.form_no}})
+                </span>
+                <button autofocus="off" nbButton (click)="ref.close()" ghost status="danger">
+                    <nb-icon icon="close-circle-outline"></nb-icon>
+                </button>
+            </div>
+        </nb-card-header>
+        <nb-card-body>
+            <table class="table" style="font-size: .8rem;">
+                <tbody>
+                    <tr>
+                        <td>Name</td>
+                        <td>{{ data.first_name }} {{ data.fathers_name }} {{ data.family_name }}</td>
+                    </tr>
+                    <tr>
+                        <td>Village</td>
+                        <td>{{data.village}}</td>
+                    </tr>
+                    <tr>
+                        <td>Agent</td>
+                        <td>{{data.created_by?.name}} - {{data.created_by?.email}}</td>
+                    </tr>
+                    <tr>
+                        <td>OTP Left</td>
+                        <td>{{data.number_of_otp_retry_allowed}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{data.mobile_nos_verified?'Verified':'Not Verified'}}</td>
+                        <td>
+                            <img [src]="data.mobile_nos_verified ? '/assets/check.svg':'/assets/cross.svg'"
+                                style="width: 1.5rem;" alt="">
+
+                        </td>
+                    </tr>
+                    <tr *ngIf="user$ | async as user">
+                        <ng-container *ngIf="user?.user_type == userType.agentAdmin">
+
+                            <td>Form Disabled</td>
+                            <td>
+                                <nb-toggle size="tiny"  status="danger"
+                                [(ngModel)]="data.discard" (checkedChange)="toggleFarmer(data.id,$event)">
+                            </nb-toggle>
+                        </td>
+                        </ng-container>
+                    </tr>
+                    <tr *ngIf="!data.mobile_nos_verified && !data.discard"> 
+                        <td colspan="2">
+                            <a style="color: #3366ff;text-decoration: underline;"   (click)="goToRequestOtp(data, ref)">Request New Otp</a>   
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </nb-card-body>
+    </nb-card>
+</ng-template>

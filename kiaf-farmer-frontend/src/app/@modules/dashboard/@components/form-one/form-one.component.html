@@ -1,0 +1,126 @@
+<form [formGroup]="personalFormGroup" class="step-container">
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="form-control-group"> <label class="label my-required" for="">First Name ( पहिले नाव )</label>
+                <input fullWidth nbInput type="text" placeholder="Enter your name" class="form-control"
+                    formControlName="firstName">
+                <span class="custom-error-text" *ngIf="(personalFormControl.firstName.errors && (personalFormControl.firstName.dirty || submittedForm))">
+                    <span *ngFor="let err of getErrorForParticularField(personalFormGroup.controls.firstName.errors)">
+                        {{err}}
+                    </span>
+                </span>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="form-control-group"> <label class="label my-required" for="">Father's Name ( वडिलांचे नाव
+                    )</label>
+                <input fullWidth nbInput type="text" placeholder="Enter father's name" class="form-control"
+                    formControlName="fatherName">
+                <span class="custom-error-text" *ngIf="(personalFormControl.fatherName.errors && (personalFormControl.fatherName.dirty || submittedForm))">
+                    <span *ngFor="let err of getErrorForParticularField(personalFormGroup.controls.fatherName.errors)">
+                        {{err}}
+                    </span>
+                </span>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="form-control-group"> <label class="label my-required" for="">Family Name ( आडनाव )</label>
+                <input fullWidth nbInput type="text" placeholder="Enter last name" class="form-control"
+                    formControlName="familyName">
+                <span class="custom-error-text" *ngIf="(personalFormControl.familyName.errors && (personalFormControl.familyName.dirty || submittedForm))">
+                    <span *ngFor="let err of getErrorForParticularField(personalFormGroup.controls.familyName.errors)">
+                        {{err}}
+                    </span>
+                </span>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="form-control-group"> <label class="label my-required" for="">Village ( गाव )</label>
+                <input fullWidth nbInput type="text" placeholder="Enter village" class="form-control"
+                    formControlName="village">
+                <span class="custom-error-text" *ngIf="(personalFormControl.village.errors && (personalFormControl.village.dirty|| submittedForm))">
+                    <span *ngFor="let err of getErrorForParticularField(personalFormGroup.controls.village.errors)">
+                        {{err}}
+                    </span>
+                </span>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="form-control-group"> <label class="label my-required" for="">Pin Code ( पिनकोड )</label>
+                <input fullWidth nbInput type="number" placeholder="Enter your pin code" autocomplete="off"
+                    class="form-control" formControlName="pinCode" 
+                    onKeyPress="if(this.value.length==6) return false;"
+                    oninput="if(!this.value.match('^[1-9][0-9]*$'))this.value='';">
+                <span class="custom-error-text" *ngIf="(personalFormControl.pinCode.errors && (personalFormControl.pinCode.dirty || submittedForm))">
+                    <span *ngFor="let err of getErrorForParticularField(personalFormGroup.controls.pinCode.errors)">
+                        {{err}}
+                    </span>
+                </span>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="form-control-group"> <label class="label" for="">Address ( पत्ता )</label>
+                <input fullWidth nbInput type="text" placeholder="Enter your address (optional)" class="form-control"
+                    formControlName="address">
+                <span class="custom-error-text" *ngIf="(personalFormControl.address.errors && (personalFormControl.address.dirty || submittedForm))">
+                    <span *ngFor="let err of getErrorForParticularField(personalFormGroup.controls.address.errors)">
+                        {{err}}
+                    </span>
+                </span>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="form-control-group"> <label class="label my-required" for="">Mobile Number ( मोबाइल क्रमांक
+                    )</label>
+                <input fullWidth nbInput placeholder="Enter your number" type="tel" class="form-control"
+                    formControlName="mobileNo" isUniqueHttpValidator="/farmer/mobile_no_exist/" minlength="10"
+                    maxlength="10">
+                <span class="custom-error-text" *ngIf="(personalFormControl.mobileNo.errors && (personalFormControl.mobileNo.dirty || submittedForm))">
+                    <span *ngIf="personalFormControl.mobileNo.errors?.isUniqueHttpValidator">
+                        Mobile number already exist
+                    </span>
+                    <span *ngFor="let err of getErrorForParticularField(personalFormGroup.controls.mobileNo.errors)">
+                        {{err}}
+                    </span>
+                </span>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="form-control-group"> <label class="label" for="">Landline Number ( दूरध्वनी क्रमांक )</label>
+                <input fullWidth nbInput type="tel" placeholder="Enter landline number (optional)" class="form-control"
+                    maxlength="15" formControlName="landlineNo">
+                <span class="custom-error-text" *ngIf="(personalFormControl.landlineNo.errors && (personalFormControl.landlineNo.dirty || submittedForm))">
+                    <span *ngFor="let err of getErrorForParticularField(personalFormGroup.controls.landlineNo.errors)">
+                        {{err}}
+                    </span>
+                </span>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="form-control-group"> <label class="label" for="">Email ( ई - मेल आयडी )</label> <input
+                    fullWidth nbInput type="email" placeholder="Email ID (optional)" class="form-control"
+                    formControlName="email">
+                    <span class="custom-error-text" *ngIf="(personalFormControl.email.errors && (personalFormControl.email.dirty || submittedForm))">
+                        <span *ngFor="let err of getErrorForParticularField(personalFormGroup.controls.email.errors)">
+                            {{err}}
+                        </span>
+                    </span>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="form-control-group"> <label class="label my-required" for="">Age in years ( वय )</label>
+                <input fullWidth nbInput type="number" placeholder="Age in yrs." class="form-control" formControlName="age" 
+                onKeyPress="if(this.value.length==2) return false;" >
+                <span class="custom-error-text" *ngIf="(personalFormControl.age.errors && (personalFormControl.age.dirty || submittedForm))">
+                    <span *ngFor="let err of getErrorForParticularField(personalFormGroup.controls.age.errors)">
+                        {{err}}
+                    </span>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="text-center">
+        <button class="m-2" type="button" status="primary" (click)="onFormSubmit()" nbButton
+            nbStepperNext>next</button>
+    </div>
+</form>

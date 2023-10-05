@@ -1,0 +1,21 @@
+:host{
+    width: 100%;
+}
+.strike{
+    text-decoration: line-through;
+}
+.farmer-info{
+    margin-left: 1rem;
+    .name{
+        margin-bottom: 0;
+        font-size: .9rem;
+    }
+    .contact{
+        margin-bottom: 0;
+        font-size: .75rem;
+        
+    }
+}
+.farmer-detail{
+    display: flex;
+}

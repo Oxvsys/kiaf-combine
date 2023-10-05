@@ -1,0 +1,18 @@
+/* Medium Devices, Desktops */
+@media only screen and (min-width : 992px) {
+    .dialog-card{
+        width: 40vw;
+    }
+}
+.dialog-card{
+    width: 80vw;
+}
+
+.action-button{
+    width: 2rem;
+    height: 2rem;
+    object-fit: cover;
+    border-radius: 50%; 
+    border: 1px solid #3366ff;
+    padding: .2rem;
+}

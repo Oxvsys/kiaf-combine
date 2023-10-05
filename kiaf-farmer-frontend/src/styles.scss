@@ -1,0 +1,83 @@
+@import 'themes';
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700&display=swap');
+
+@import '~@nebular/theme/styles/globals';
+
+@include nb-install() {
+  @include nb-theme-global();
+};
+/* You can add global styles to this file, and also import other style files */
+@import "~bootstrap/dist/css/bootstrap.css";
+// Global reset for nb class
+.menu-title {
+  flex : 0 0 auto !important;
+}
+// Global reset
+.strikethrough {
+  text-decoration: line-through;
+}
+re-captcha{
+  div{
+    margin: 0 auto;
+    display: block;
+  }
+}
+.user-picture.image{
+  background-position: center;
+}
+
+.form-control-group{
+  margin-bottom: 1rem;
+}
+.label{
+  font-size: .85rem!important;
+  line-height: 2rem!important;
+  margin-bottom: 0.2rem !important;
+}
+@media only screen and (max-width : 480px) {
+  .label{
+    font-size: .75rem!important;
+  }
+  }
+// Stepper component remove extra padding for mobile view 
+@media only screen and (min-width : 320px) {
+  .nb-theme-default nb-stepper .step-content{
+      padding: 0!important;
+  }
+}
+.custom-error-text {
+  color: #d11124;
+  font-size: 0.8rem;
+}
+.custom-error-text span {
+  // Hidden by default
+  display: none;
+}
+.custom-error-text span:first-child {
+  display: block;
+  margin: .3rem;
+}
+.nb-theme-default nb-toggle .toggle{
+  height: 1.375rem;
+  width: 2.325rem;
+}
+.nb-theme-default nb-toggle .toggle-switcher{
+    height: 1.275rem;
+    width: 1.375rem;
+}
+[dir=ltr] .nb-theme-default nb-toggle .toggle.checked .toggle-switcher{
+        left:calc(100% - 1.375rem - 1px - 1px);
+}
+
+.mw-none{
+  max-width: none !important;
+}
+body{
+  user-select: none !important;
+}
+.my-required:after{
+  // color: red;
+  // content: " *";
+  // margin-right: 1rem;
+  // display: contents;
+}

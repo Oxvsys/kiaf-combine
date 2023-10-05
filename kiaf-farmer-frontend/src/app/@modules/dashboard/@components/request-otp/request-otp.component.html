@@ -1,0 +1,20 @@
+<div class="d-flex h-100 justify-content-center align-items-center" *ngIf="state?.id">
+    <div class="card-row">
+        <div class="card-col">
+            <nb-card size="tiny" style="height:auto;" fullWidth>
+                <nb-card-header>Verify mobile number and request OTP</nb-card-header>
+                <nb-card-body>
+                    <div>
+                        <form>
+                            <input class="my-3" type="text" nbInput fullWidth shape="semi-round"
+                                placeholder="Please enter your mobile number" [(ngModel)]="mobNo" name="mobNo" disabled>
+                        </form>
+                    </div>
+                    <div class="text-center">
+                        <button nbButton hero status="primary" (click)="getNext()">Request OTP</button>
+                    </div>
+                </nb-card-body>
+            </nb-card>
+        </div>
+    </div>
+</div>

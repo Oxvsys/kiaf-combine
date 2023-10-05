@@ -1,0 +1,64 @@
+<div class="row d-flex justify-content-center align-items-center" style="height: 100%;">
+    <div class="col-md-8">
+        <!-- {{data | json}} -->
+        <form [formGroup]="form" *ngIf="form">
+            <nb-card>
+                <nb-card-body>
+                    <nb-stepper #stepper orientation="horizontal">
+                        <!-- linear="true"  disableStepNavigation -->
+                        <nb-step [label]="labelOne" class="my-step-content">
+                            <ng-template #labelOne>First step</ng-template>
+                            <app-form-one (formReady)="addChildForm('personalFormGroup', $event)"
+                                (valueChange)="onValueChange($event)">
+                            </app-form-one>
+                        </nb-step>
+
+                        <nb-step [label]="labelTwo" class="my-step-content">
+                            <ng-template #labelTwo>Second step</ng-template>
+                            <app-form-two [farmerData]="data" (formReady)="addChildForm('landFormGroup', $event)"
+                                (valueChange)="onValueChange($event)"></app-form-two>
+                        </nb-step>
+
+                        <nb-step [label]="labelThree" class="my-step-content">
+                            <ng-template #labelThree>Third step</ng-template>
+                            <app-form-three [farmerData]="data" (formReadyCrop)="addChildForm('cropAreaGroup',$event)"
+                                (formReadyLiveStock)="addChildForm('liveStockGroup',$event)"
+                                (valueChange)="onValueChange($event)" [stepperRef]="stepper"></app-form-three>
+                        </nb-step>
+
+                        <nb-step [hidden]="true">
+                            <div class="step-container">
+                                <form [formGroup]="fourthForm" *ngIf="fourthForm" class="step-container">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-control-group"> <label class="label" for="">Co-op. Society
+                                                    Memberships of (सहकारी संस्थेची सदस्यता)</label>
+                                                <input fullWidth nbInput fullWidth type="text"
+                                                    placeholder="Names off the co-op. societies, if any"
+                                                    class="form-control" formControlName="coOperativeName"
+                                                    [ngClass]="{'form-control-danger': fourthForm.invalid && (fourthForm.dirty || submitted4)}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <nb-checkbox status="primary" (checkedChange)="toggle($event)">I am interested in
+                                        non-debt funding through TROT Agro
+                                        products. I understand that there are no processing charges or deposit to be
+                                        paid
+                                        by me
+                                        and I do not have to buy any shares.</nb-checkbox>
+                                    <div class="mb-4"></div>
+                                    <div class="d-flex justify-content-around">
+                                        <button class="m-2" status="primary" nbButton nbStepperPrevious>prev</button>
+                                        <button class="m-2" status="primary" [disabled]="disableBtn" type="button"
+                                            (click)="onFourthSubmit()" nbButton nbStepperNext>Submit</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </nb-step>
+
+                    </nb-stepper>
+                </nb-card-body>
+            </nb-card>
+        </form>
+    </div>
+</div>

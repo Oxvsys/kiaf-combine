@@ -1,0 +1,18 @@
+<nb-card size="medium" style="height: 75vh">
+    <nb-card-header>
+        Agents
+    </nb-card-header>
+    <p class="mx-3 mt-3 text-danger text-center" *ngIf="agents.length ==0">No Agent found</p>
+    <nb-list>
+        <nb-list-item *ngFor="let agent of agents" class="">
+            
+                   <app-user-item [fullName]="agent.name" [contactNo]="agent.email" [profilePicture]="agent.profile_image">
+                    <!-- <nb-user size="small" [picture]="agent.profile_image" [name]="agent.name" [title]="agent.email" [ngStyle]="{backgroundPosition:'center'}">
+                    </nb-user> -->
+                
+                    <nb-toggle size="small"  [(ngModel)]="agent.is_active" (checkedChange)="toggleAgentActive(agent.id)"></nb-toggle>
+                   </app-user-item>
+               
+        </nb-list-item>
+    </nb-list>
+</nb-card>

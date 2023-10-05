@@ -1,0 +1,28 @@
+<ul *ngIf="pager.pages && pager.pages.length" class="pagination d-flex justify-content-center">
+  <li class="page-item first-item mx-2">  
+  <button size="small" [disabled]="pager.currentPage === 1"  (click)="setPage(1)" nbButton outline shape="round" status="primary" class="">
+    <nb-icon icon="arrowhead-left-outline"></nb-icon>
+  </button>
+  </li>
+  <li class="page-item previous-item mx-2">
+      <button [disabled]="pager.currentPage === 1" size="small"  (click)="setPage(pager.currentPage - 1)"nbButton outline shape="round" status="primary" class="">
+        <nb-icon icon="arrow-ios-back-outline"></nb-icon>
+      </button>
+  </li>
+  <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}" class="page-item number-item mx-2">
+      <button (click)="setPage(page)" size="small" nbButton outline shape="round" [status]="pager.currentPage === page ? 'success':'primary'" class="">
+        {{page}}
+      </button>
+  </li>
+  <li class="page-item next-item mx-2">
+      <button [disabled]="pager.currentPage === pager.totalPages" size="small"  (click)="setPage(pager.currentPage + 1)"nbButton outline shape="round" status="primary" class="">
+        <nb-icon icon="arrow-ios-forward-outline"></nb-icon>
+      </button>
+  </li>
+  <li class="page-item last-item mx-2">
+      <button [disabled]="pager.currentPage === pager.totalPages" size="small"  (click)="setPage(pager.totalPages)" nbButton outline shape="round" status="primary" class="">
+        <nb-icon icon="arrowhead-right-outline"></nb-icon>
+      </button>
+  </li>
+</ul>
+

@@ -1,0 +1,106 @@
+<h1 id="title" class="title">Register</h1>
+
+
+<app-social-auth></app-social-auth>
+<form (ngSubmit)="register()" #form="ngForm" aria-labelledby="title">
+
+    <div class="form-control-group">
+        <label class="label" for="input-name">Full name:</label>
+        <input nbInput [(ngModel)]="user.name" #fullName="ngModel" id="input-name" name="name" placeholder="Full name" fullWidth 
+            required minlength="10"
+            maxlength="100"
+            [attr.aria-invalid]="fullName.invalid && fullName.touched ? true : null">
+        <ng-container *ngIf="fullName.invalid && fullName.touched">
+            <p class="caption status-danger" *ngIf="fullName.errors?.required">
+                Full name is required!
+            </p>
+            <p class="caption status-danger" *ngIf="fullName.errors?.minlength || fullName.errors?.maxlength">
+                Full name should contains
+                from 10
+                to 100
+                characters
+            </p>
+        </ng-container>
+    </div>
+
+    <div class="form-control-group">
+        <label class="label" for="input-email">Email address:</label>
+        <input nbInput [(ngModel)]="user.email" #email="ngModel" id="input-email" name="email" pattern=".+@.+..+"
+            placeholder="Email address" fullWidth 
+            required
+            [attr.aria-invalid]="email.invalid && email.touched ? true : null">
+        <ng-container *ngIf="email.invalid && email.touched">
+            <p class="caption status-danger" *ngIf="email.errors?.required">
+                Email is required!
+            </p>
+            <p class="caption status-danger" *ngIf="email.errors?.pattern">
+                Email should be the real one!
+            </p>
+        </ng-container>
+    </div>
+
+    <div class="form-control-group">
+        <label class="label" for="input-password">Password:</label>
+        <div class="input-group justify-content-between">
+            <input type="password" nbInput [(ngModel)]="user.password" #password="ngModel" name="password" class="flex-grow-1 mw-none"
+            id="input-password" placeholder="Password" #password1Ref
+            required [minlength]="PASS_MIN" [maxlength]="PASS_MAX"> 
+            <app-password-hide-show [inputRef]="password1Ref"></app-password-hide-show>
+        </div>
+        <ng-container *ngIf="password.invalid && password.touched">
+            <p class="caption status-danger" *ngIf="password.errors?.required">
+                Password is required!
+            </p>
+            <p class="caption status-danger" *ngIf="password.errors?.minlength || password.errors?.maxlength">
+                Password should contain
+                from  {{PASS_MIN}}
+                to {{PASS_MAX}}
+                characters
+            </p>
+        </ng-container>
+    </div> 
+
+
+    <div class="form-control-group">
+        <label class="label" for="input-re-password">Repeat password:</label>
+        <div class="input-group justify-content-between">
+            <input nbInput [(ngModel)]="user.password2" #password2="ngModel" name="password2"
+            id="input-password2" placeholder="Password"  type="password" #password2Ref class="flex-grow-1 mw-none"
+            required
+            [attr.aria-invalid]="password2.invalid && password2.touched ? true : null">
+            <app-password-hide-show [inputRef]="password2Ref"></app-password-hide-show>
+        </div>
+        <ng-container *ngIf="password2.invalid && password2.touched">
+            <p class="caption status-danger" *ngIf="password2.errors?.required">
+                Password confirmation is required!
+            </p>
+            <p class="caption status-danger" *ngIf="password2.value != password2.value && !password2.errors?.required">
+                Password does not match the confirm password.
+            </p>
+        </ng-container>
+    </div>
+
+    <div class="form-control-group">
+        <ng-container>
+            <re-captcha name="recaptcha" [(ngModel)]="user.recaptcha"
+                siteKey="6LdXnp4aAAAAAINfbYuj6Gj7RuMkHdlAfPGtMWQX">
+            </re-captcha>
+        </ng-container>
+    </div>
+
+    <!-- <div class="form-control-group accept-group" *ngIf="getConfigValue('forms.register.terms')">
+    <nb-checkbox name="terms" [(ngModel)]="user.terms" [required]="getConfigValue('forms.register.terms')">
+      Agree to <a href="#" target="_blank"><strong>Terms & Conditions</strong></a>
+    </nb-checkbox>
+  </div> -->
+
+    <button nbButton fullWidth status="primary" size="large" [disabled]="submitted || !form.valid"
+        [class.btn-pulse]="submitted" [nbSpinner]="loading">
+        Register
+    </button>
+</form>
+
+
+<section class="another-action" aria-label="Sign in">
+    Already have an account? <a class="text-link" routerLink="../login">Log in</a>
+</section>

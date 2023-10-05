@@ -1,0 +1,17 @@
+
+.stats-wrapper {
+  display: flex;
+  justify-content: space-around;
+  margin: auto 0;
+}
+
+@media only screen and (max-width : 480px) {
+  .caption{
+      font-size: 1.0rem;
+  }
+}
+.p-stat{
+  font-size: 1.7rem;
+  color: white;
+  margin: auto 0;
+}

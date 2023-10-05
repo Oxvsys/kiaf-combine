@@ -1,0 +1,36 @@
+<div class="container">
+    <div class="row d-flex justify-content-center">
+        <div class="col-lg-6">
+            <div *ngIf="user" class="card">
+                <div class="card-body">
+
+                    <!-- <nb-card-body class="d-flex justify-content-center" [ngStyle]="{border:0,margin :0}"> -->
+                    <div class=" d-flex justify-content-center image_outer_container">
+                        <div class="green_icon">
+                            <button nbButton (click)="fileInput.click()" hero status="primary">
+                                <nb-icon icon="edit"></nb-icon>
+                            </button>
+                            <input style="display: none" type="file" (change)="onFileChanged($event)" #fileInput>
+                        </div>
+                        <div class="image_inner_container">
+                            <img [src]="imageSrc ? imageSrc : user.profile_image">
+                        </div>
+                    </div>
+                    <form>
+                        <div class="form-control-group">
+                            <label class="label" for="input-password">Email</label>
+                            <input nbInput fullWidth name="email" [(ngModel)]="user.email" disabled>
+                        </div>
+                        <div class="form-control-group">
+                            <label class="label" for="input-password">Full Name</label>
+                            <input nbInput fullWidth name="name" [(ngModel)]="user.name">
+                        </div>
+                        <button nbButton fullWidth status="success" [nbSpinner]="loading" (click)="onUpload()">Update Profile</button>
+                    </form>
+                    <!-- </nb-card-body> -->
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
